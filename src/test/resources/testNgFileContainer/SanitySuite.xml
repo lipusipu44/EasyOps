@@ -1,0 +1,19 @@
+<suite name="Suite-Listeners" parallel="none">
+
+	<listeners>
+
+		<listener class-name="utilPackages.ListenerClass"></listener>
+
+	</listeners>
+
+	<test name="Batch-Listeners">
+
+		<classes>
+
+			<class name="loginEasyops.EasyOpsLoginTest" />
+
+		</classes>
+
+	</test>
+
+</suite>
