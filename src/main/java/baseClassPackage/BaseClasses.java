@@ -89,6 +89,11 @@ public class BaseClasses {
 		}
 	}
 
+	/**
+	 * This mehthod is used for browser preference, it will fetch the data directly from config.
+	 * property file in test/resource folder
+	 * @return
+	 */
 	public static String browserPreference(){
 		PropertyValExtractors p=new PropertyValExtractors();
 		p.getPropertyFile("test",  "configuration.properties");
