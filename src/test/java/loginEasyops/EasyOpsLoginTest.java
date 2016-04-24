@@ -11,22 +11,36 @@ import baseClassPackage.BaseClasses;
 
 
 public class EasyOpsLoginTest{
-	HomePage homePage;
-	BaseClasses baseClass;
+	HomePage homePage,homePage2;
 	WebDriver driver,driver2;
-	@BeforeClass
+	@BeforeClass(alwaysRun=true)
 	public void setup(){
-		driver=BaseClasses.setup("gc", "User1");
+		driver=BaseClasses.setup( "User1");
 		driver.get("http://www.easyops.in/");
-		//driver2=BaseClasses.setup("gc", "User2");
-		//driver2.get("http://www.easyops.in/");
+		homePage=HomePage.getPage(driver, HomePage.class);
+		driver2=BaseClasses.setup("User2");
+		driver2.get("http://www.easyops.in/");
+		homePage2=HomePage.getPage(driver2, HomePage.class);
+	}
+
+	@Test(groups={"Sanity"})
+	public void checkLoginBtnAvl(){
+		homePage.verifyLoginButton();
+		homePage.verifySinginButton();
+	}
+
+	@Test(groups={"Sanity"})
+	public void checkProductBtnAvl(){
+		homePage2.verifyProductBtn();
+	}
+
+	@Test()
+	public void checkFeatureBtnAvl(){
+		homePage.verifyFeatureBtn();
 	}
 
 	@Test
-	public void checkLoginBtnAvl(){
-		//homePage=new HomePage(driver);
-		homePage=HomePage.getPage(driver, HomePage.class);
-		homePage.verifyLoginButton();
-		homePage.verifySinginButton();
+	public void checkIntegrationAvl(){
+		homePage2.verifyIntegrationsBtn();
 	}
 }

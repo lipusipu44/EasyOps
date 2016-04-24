@@ -8,6 +8,23 @@
 
 	<test name="Batch-Listeners">
 
+		<groups>
+
+			<define name="All">
+
+				<include name="Sanity" />
+
+
+			</define>
+
+			<run>
+
+				<include name="All" />
+
+			</run>
+
+		</groups>
+
 		<classes>
 
 			<class name="loginEasyops.EasyOpsLoginTest" />

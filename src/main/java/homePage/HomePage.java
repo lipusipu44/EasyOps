@@ -47,4 +47,25 @@ public class HomePage extends BasePage{
 		Assert.assertTrue(driver.findElement(By.cssSelector("#navbar > ul > li:nth-child(2) > a")).isDisplayed());
 
 	}
+	
+	@FindBy(how=How.CSS, css="ul#nav-contents> li:nth-child(1) >a")
+	private WebElement btn_getProductLink;
+	public void verifyProductBtn(){
+		log.info("Verifying if Product tab is available or not");
+		Assert.assertTrue(btn_getProductLink.getText().contains("Product"), "Assert Failed as its unable to search text in Product Button");
+	}
+	
+	@FindBy(how=How.CSS, using="ul#nav-contents> li:nth-child(2) >a")
+	private WebElement btn_getFeatureLink;
+	public void verifyFeatureBtn(){
+		log.info("Verify the Feature tab in the home page");
+		Assert.assertTrue(btn_getFeatureLink.getText().contains("Feature"), "Assert is unable to match the String name of the feature");
+	}
+	
+	@FindBy(how=How.CSS, using="ul#nav-contents> li:nth-child(3) >a")
+	private WebElement btn_getIntegrationLink;
+	public void verifyIntegrationsBtn(){
+		log.info("Verify the Feature tab in the home page");
+		Assert.assertTrue(btn_getIntegrationLink.getText().contains("Integrations"), "Assert is unable to match the String name of the Integrations");
+	}
 }

@@ -16,15 +16,15 @@ import utilPackages.PropertyValExtractors;
  */
 public class BaseClasses {
 	public static WebDriver driver=null;
-	String browser;
+	static String browser;
 	protected static Logger log=Logger.getLogger(BaseClasses.class);
 	private static Map<String,WebDriver> driverHolder=new HashMap<String, WebDriver>();
 	/**
 	 * @param browser
 	 * Method used to call the driver according to use
 	 */
-	public static WebDriver setup(String browser, String user){
-
+	public static WebDriver setup(String user){
+		browser=BaseClasses.browserPreference();
 		if(browser.equalsIgnoreCase("firefox")||browser.equalsIgnoreCase("ff")){
 			if(driverHolder.get(user)==null){
 				log.info("Firefox Driver is selected");
@@ -87,6 +87,14 @@ public class BaseClasses {
 				System.exit(0);
 			}
 		}
+	}
+
+	public static String browserPreference(){
+		PropertyValExtractors p=new PropertyValExtractors();
+		p.getPropertyFile("test",  "configuration.properties");
+		browser=p.getVal("Browser");
+		return browser;
+
 	}
 
 }
