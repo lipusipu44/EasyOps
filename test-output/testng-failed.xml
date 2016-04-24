@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [Suite-Listeners]" parallel="none">
-  <test name="Batch-Listeners">
-    <classes>
-      <class name="loginEasyops.EasyOpsLoginTest"/>
-    </classes>
-  </test> <!-- Batch-Listeners -->
-</suite> <!-- Failed suite [Suite-Listeners] -->
