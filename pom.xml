@@ -24,6 +24,13 @@
 			<version>6.9.10</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.pojosontheweb</groupId>
+			<artifactId>monte-repack</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+
 
 	</dependencies>
 	<profiles>
