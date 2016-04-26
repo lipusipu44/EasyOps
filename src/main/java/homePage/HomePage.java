@@ -8,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.testng.Assert;
 
+import utilPackages.WaitClass;
+
 import baseClassPackage.BasePage;
 
 /**
@@ -36,6 +38,7 @@ public class HomePage extends BasePage{
 	 */
 	public void verifyLoginButton(){
 		log.info("Verifying the login button is available or not");
+		WaitClass.WaitForElementisDisplay(driver, 5, loginButton);
 		Assert.assertTrue(loginButton.isDisplayed());
 	}
 

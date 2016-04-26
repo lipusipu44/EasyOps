@@ -18,7 +18,7 @@ public class BasePage {
 	/**
 	 * Used for Page factory and the page initialization will be called from Test classes. They will pass the
 	 * driver and from this class the driver will be passed to the Page classes, if page factory is not used for 
-	 * a method then driver will be initialized in this class constrcutor and it will be passed to the page classes
+	 * a method then driver will be initialized in this class constructor and it will be passed to the page classes
 	 * 
 	 * @param driver
 	 * @param Page

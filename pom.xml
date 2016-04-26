@@ -44,10 +44,10 @@
 						<version>2.17</version>
 						<configuration>
 							<suiteXmlFiles>
-								<suiteXmlFile>\ToolsQA\ToolsQA\src\test\resources\testNgFileContainer\SanitySuite.xml</suiteXmlFile>
+								<suiteXmlFile>\ToolsQA\EasyOps\src\test\resources\testNgFileContainer\SanitySuite.xml</suiteXmlFile>
 							</suiteXmlFiles>
 							<additionalClasspathElements>
-								<additionalClasspathElement>\ToolsQA\ToolsQA\src\main\resources\propertyFilePackage</additionalClasspathElement>
+								<additionalClasspathElement>\ToolsQA\EasyOps\src\main\resources\propertyFilePackage</additionalClasspathElement>
 							</additionalClasspathElements>
 						</configuration>
 					</plugin>

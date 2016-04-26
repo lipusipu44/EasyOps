@@ -3,7 +3,6 @@ package utilPackages;
 import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
@@ -29,7 +28,7 @@ public class ListenerClass  implements ISuiteListener,ITestListener,IInvokedMeth
 	Logger log=Logger.getLogger(ListenerClass.class);
 	public void onFinish(ISuite arg0) {
 		log.info("########"+"Ending the TestSuite:"+arg0.getName()+"#######");
-		log.info("##### Ending desktop recording at the beginning of the test suite execution#####");
+		log.info("##### Ending desktop recording at the end of the test suite execution#####");
 		stopRecording();
 	}
 
@@ -70,11 +69,12 @@ public class ListenerClass  implements ISuiteListener,ITestListener,IInvokedMeth
 	}
 
 	public void onTestStart(ITestResult arg0) {
-		log.info("########"+"Starting the Test Method in the Test class:"+arg0.getMethod().getMethodName()+"#######");
+		log.info("########"+"Running the test method:"+arg0.getMethod().getMethodName()+"#######");
+		log.info("--------"+"Getting  the Test Method descrption of the Test method:"+arg0.getMethod().getDescription()+"--------");
 	}
 
 	public void onTestSuccess(ITestResult arg0) {
-		log.info("########"+"Succeeded the Test Method:"+arg0.getName().trim()+"#######");
+		log.info("########"+"Succeeded the test Method:"+arg0.getName().trim()+"#######");
 		try {
 			getscreenshot(BaseClasses.driver,arg0.getName());
 		} catch (Exception e) {
@@ -84,7 +84,7 @@ public class ListenerClass  implements ISuiteListener,ITestListener,IInvokedMeth
 	}
 
 	public void afterInvocation(IInvokedMethod arg0, ITestResult arg1) {
-		log.info("########"+"Invoked the Test Method:"+arg0.getTestMethod().getMethodName()+"#######");
+		log.info("########"+"Invoked the test Method:"+arg0.getTestMethod().getMethodName()+"#######");
 	}
 
 	public void beforeInvocation(IInvokedMethod arg0, ITestResult arg1) {
@@ -146,5 +146,6 @@ public class ListenerClass  implements ISuiteListener,ITestListener,IInvokedMeth
 			e.printStackTrace();
 		}
 	}
+
 
 }
