@@ -29,12 +29,16 @@ public class ListenerClass  implements ISuiteListener,ITestListener,IInvokedMeth
 	Logger log=Logger.getLogger(ListenerClass.class);
 	public void onFinish(ISuite arg0) {
 		log.info("########"+"Ending the TestSuite:"+arg0.getName()+"#######");
+		log.info("##### Ending desktop recording at the beginning of the test suite execution#####");
+		stopRecording();
 	}
 
 	public void onStart(ISuite arg0) {
 		log.info("########"+"Starting the TestSuite:"+arg0.getName()+"#######");
 		log.info("########Creating current folder for screenshot and log file holding#######");
 		createOutputHolder();
+		log.info("##### Starting desktop recording at the beginning of the test suite execution#####");
+		startRecording();
 
 	}
 
@@ -117,6 +121,30 @@ public class ListenerClass  implements ISuiteListener,ITestListener,IInvokedMeth
 	{
 		File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		FileUtils.copyFile(scrFile, new File(System.getProperty("user.dir")+"//Result//current//"+methodName+".png"));
+	}
+
+	/**
+	 * This method is used to start recording of desktop 
+	 * using monte
+	 */
+	public void startRecording(){
+		try {
+			DesktopRecorder.startRecording();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * This method is used to call the static method of desktop recording class which uses monte 
+	 * class for desktop recording
+	 */
+	public void stopRecording(){
+		try {
+			DesktopRecorder.stopRecording();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
