@@ -4,4 +4,4 @@ test-output/
 .settings/
 debug.log
 .classpath
-.project/
+.project
