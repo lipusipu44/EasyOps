@@ -29,6 +29,7 @@ public class EasyOpsLoginTest{
 		driver2=BaseClasses.setup("User2");
 		driver2.get(url);
 		WaitClass.waitForUrl(driver2, url, 10);
+		//BaseClasses.setSize(driver2, 446, 619);
 		homePage2=HomePage.getPage(driver2, HomePage.class);
 	}
 
@@ -36,11 +37,13 @@ public class EasyOpsLoginTest{
 	public void checkLoginBtnAvl(){
 		homePage.verifyLoginButton();
 		homePage.verifySinginButton();
+		homePage.verifyMyntraBtn();
 	}
 
 	@Test(groups={"Sanity"},description="Check for Product button is available or not")
 	public void checkProductBtnAvl(){
 		homePage2.verifyProductBtn();
+		homePage2.navigateBottom();
 	}
 
 	@Test()

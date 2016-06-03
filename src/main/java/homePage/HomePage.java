@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.testng.Assert;
 
+import utilPackages.JavaScriptExec;
 import utilPackages.WaitClass;
 
 import baseClassPackage.BasePage;
@@ -71,4 +72,20 @@ public class HomePage extends BasePage{
 		log.info("Verify the Feature tab in the home page");
 		Assert.assertTrue(btn_getIntegrationLink.getText().contains("Integrations"), "Assert is unable to match the String name of the Integrations");
 	}
+	
+	@FindBy(how=How.CSS, using="img[alt='Facebook']")
+	private WebElement btn_Facebook;
+	public void verifyMyntraBtn(){
+		log.info("Verify the Myntra tab at the bottom of home page");
+		WaitClass.WaitForElementisDisplay(driver, 5, btn_Facebook);
+		JavaScriptExec.scrollToElementOnPage(driver, btn_Facebook);
+		WaitClass.sleep(5000);
+	}
+	
+	public void navigateBottom(){
+		JavaScriptExec.scrolltoBottomofPage(driver);
+		WaitClass.sleep(5000);
+	}
+	
+	
 }

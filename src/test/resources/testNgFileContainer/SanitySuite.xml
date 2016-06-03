@@ -1,19 +1,18 @@
-<suite name="Suite-Listeners" parallel="none">
+<suite name="EasyOps-Sanity" parallel="none">
 
 	<listeners>
 
-		<listener class-name="utilPackages.ListenerClass"></listener>
+		<listener class-name="utilPackages.MyReporterListener"></listener>
 
 	</listeners>
 
-	<test name="Batch-Listeners">
+	<test name="EasyOps-Sanity">
 
 		<groups>
 
 			<define name="All">
 
 				<include name="Sanity" />
-
 
 			</define>
 

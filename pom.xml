@@ -35,7 +35,7 @@
 	</dependencies>
 	<profiles>
 		<profile>
-			<id>Google</id>
+			<id>EasyOps</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -49,6 +49,12 @@
 							<additionalClasspathElements>
 								<additionalClasspathElement>\ToolsQA\EasyOps\src\main\resources\propertyFilePackage</additionalClasspathElement>
 							</additionalClasspathElements>
+							<properties>
+								<property>
+									<name>listener</name>
+									<value>utilPackages.ListenerClass</value>
+								</property>
+							</properties>
 						</configuration>
 					</plugin>
 				</plugins>

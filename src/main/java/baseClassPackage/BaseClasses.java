@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -19,9 +20,11 @@ public class BaseClasses {
 	static String browser;
 	protected static Logger log=Logger.getLogger(BaseClasses.class);
 	private static Map<String,WebDriver> driverHolder=new HashMap<String, WebDriver>();
+	
 	/**
-	 * @param browser
-	 * Method used to call the driver according to use
+	 * @param user
+	 * @return
+	 * Method to initiate driver with browser preference
 	 */
 	public static WebDriver setup(String user){
 		browser=BaseClasses.browserPreference();
@@ -100,6 +103,13 @@ public class BaseClasses {
 		browser=p.getVal("Browser");
 		return browser;
 
+	}
+	
+	public static void setSize(WebDriver driver,int height, int width){
+		log.info("Setting the new size of browser");
+		Dimension dimension=new Dimension(width, height);
+		driver.manage().window().setSize(dimension);
+		
 	}
 
 }
