@@ -1,5 +1,6 @@
 package baseClassPackage;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -9,11 +10,13 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.server.browserlaunchers.FirefoxLauncher;
 
 import utilPackages.PropertyValExtractors;
 
@@ -48,12 +51,13 @@ public class BaseClasses {
 			if(browser.equalsIgnoreCase("firefox")||browser.equalsIgnoreCase("ff")){
 
 				capability = DesiredCapabilities.firefox();
-				FirefoxProfile profile = new FirefoxProfile(); 
+				/*FirefoxProfile profile = new FirefoxProfile(); 
 				profile.setAcceptUntrustedCertificates(true);
-				/*if(environment.contains("preprod"))
-					profile.setAssumeUntrustedCertificateIssuer(false);*/
+				if(environment.contains("preprod"))
+					profile.setAssumeUntrustedCertificateIssuer(false);
 				capability = DesiredCapabilities.firefox(); 
-				capability.setCapability(FirefoxDriver.PROFILE, profile);
+				capability.setCapability(FirefoxDriver.PROFILE, profile);*/
+				capability.setCapability(FirefoxDriver.BINARY,new File("C:/Program Files (x86)/Mozilla Firefox/firefox.exe").getAbsolutePath());
 
 			}
 			else if(browser.equalsIgnoreCase("internetexplorer")||browser.equalsIgnoreCase("ie")){
