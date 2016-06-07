@@ -27,7 +27,7 @@ import utilPackages.PropertyValExtractors;
 public class BaseClasses {
 	public static WebDriver driver=null;
 	static String browser,remoteWebDriverUrl;
-	static Boolean useRemoteWebDriver;
+	static Boolean useRemoteWebDriver=false;
 	static PropertyValExtractors p;
 	protected static Logger log=Logger.getLogger(BaseClasses.class);
 	private static Map<String,WebDriver> driverHolder=new HashMap<String, WebDriver>();
@@ -41,12 +41,16 @@ public class BaseClasses {
 	public static WebDriver setup(String user){
 		
 		browser=BaseClasses.browserPreference();
-		useRemoteWebDriver=isRemoteMachineReq();
+		remoteWebDriverUrl=System.getProperty("remoteurl"); // this value we will get from maven variable
 		
+		if(remoteWebDriverUrl!=null)
+			useRemoteWebDriver=true;
+		else
+			useRemoteWebDriver=false;
+			
 		if (useRemoteWebDriver) {
 			
 			log.info("####### Running the test case in remote machine #######");
-			remoteWebDriverUrl = remoteUrlLocation();
 			DesiredCapabilities capability = null;
 			if(browser.equalsIgnoreCase("firefox")||browser.equalsIgnoreCase("ff")){
 
