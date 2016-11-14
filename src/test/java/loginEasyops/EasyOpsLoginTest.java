@@ -3,6 +3,7 @@ package loginEasyops;
 import homePage.HomePage;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -26,6 +27,7 @@ public class EasyOpsLoginTest{
 		driver.get(url);
 		WaitClass.waitForUrl(driver, url, 10);
 		homePage=HomePage.getPage(driver, HomePage.class);
+		//homePage=PageFactory.initElements(driver, HomePage.class);
 		driver2=BaseClasses.setup("User2");
 		driver2.get(url);
 		WaitClass.waitForUrl(driver2, url, 10);

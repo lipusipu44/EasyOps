@@ -8,15 +8,13 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.server.browserlaunchers.FirefoxLauncher;
 
 import utilPackages.PropertyValExtractors;
 
@@ -26,35 +24,47 @@ import utilPackages.PropertyValExtractors;
  */
 public class BaseClasses {
 	public static WebDriver driver=null;
-	static String browser,remoteWebDriverUrl;
+	static String browser,remoteWebDriverUrl,browserPort;
 	static Boolean useRemoteWebDriver=false;
 	static PropertyValExtractors p;
 	protected static Logger log=Logger.getLogger(BaseClasses.class);
 	private static Map<String,WebDriver> driverHolder=new HashMap<String, WebDriver>();
-	
-	
+	static String proxyString;
+
+
 	/**
 	 * @param user
 	 * @return
 	 * Method to initiate driver with browser preference
 	 */
 	public static WebDriver setup(String user){
-		
+
 		browser=BaseClasses.browserPreference();
-		remoteWebDriverUrl=System.getProperty("remoteurl"); // this value we will get from maven variable
-		
+		remoteWebDriverUrl=System.getProperty("remoteurl"); // this value we will get from maven variable -Dremoteurl
+		browserPort=BaseClasses.getBrowserProxy();
+		proxyString="localhost:"+browserPort;
+
 		if(remoteWebDriverUrl!=null)
 			useRemoteWebDriver=true;
 		else
 			useRemoteWebDriver=false;
-			
+		//Below code is written to enable the proxy mode of browser Disabling it for the time being as 8080 is not required for this project
+
+		/*Proxy proxy=new Proxy();
+		proxy.setHttpProxy(proxyString).setFtpProxy(proxyString).setSslProxy(proxyString)
+		.setSocksProxy(proxyString);
+		 */
+
+
+		DesiredCapabilities capability = null;
 		if (useRemoteWebDriver) {
-			
+
 			log.info("####### Running the test case in remote machine #######");
-			DesiredCapabilities capability = null;
 			if(browser.equalsIgnoreCase("firefox")||browser.equalsIgnoreCase("ff")){
 
-				capability = DesiredCapabilities.firefox();
+				/*capability = DesiredCapabilities.firefox();
+				capability.setCapability(CapabilityType.PROXY, proxy);*/
+				
 				/*FirefoxProfile profile = new FirefoxProfile(); 
 				profile.setAcceptUntrustedCertificates(true);
 				if(environment.contains("preprod"))
@@ -77,16 +87,19 @@ public class BaseClasses {
 				capability.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, true);
 				capability.setCapability("ignoreZoomSetting", true);
 				capability.setCapability("ignoreProtectedModeSettings" , true);
+				/*capability.setCapability(CapabilityType.PROXY, proxy);*/
 
 			}
 
 			else if(browser.equalsIgnoreCase("chrome")||browser.equalsIgnoreCase("gc")){
 				//PropertyValExtractors.exeSetup();
 				capability = DesiredCapabilities.chrome();
+				/*capability.setCapability(CapabilityType.PROXY, proxy);*/
 			}
 
 			else if(browser.equalsIgnoreCase("opera")){
 				capability = DesiredCapabilities.opera();
+				/*capability.setCapability(CapabilityType.PROXY, proxy);*/
 			}
 
 			try {
@@ -96,6 +109,7 @@ public class BaseClasses {
 					driverHolder.put(user, driver);
 				} else {
 					log.error("Already the driver with the same string exists so closing the execution");
+					System.exit(0);
 				}
 
 			} catch (MalformedURLException e) {
@@ -111,7 +125,9 @@ public class BaseClasses {
 			if(browser.equalsIgnoreCase("firefox")||browser.equalsIgnoreCase("ff")){
 				if(driverHolder.get(user)==null){
 					log.info("Firefox Driver is selected");
-					driver=new FirefoxDriver();
+					capability = DesiredCapabilities.firefox();
+					/*capability.setCapability(CapabilityType.PROXY, proxy);*/
+					driver=new FirefoxDriver(capability);
 					driver.manage().window().maximize();
 					driverHolder.put(user, driver);
 
@@ -124,7 +140,9 @@ public class BaseClasses {
 				if(driverHolder.get(user)==null){
 					log.info("Chrome Driver is selected");
 					PropertyValExtractors.exeSetup();
-					driver=new ChromeDriver();
+					capability = DesiredCapabilities.chrome();
+					/*capability.setCapability(CapabilityType.PROXY, proxy);*/
+					driver=new ChromeDriver(capability);
 					driver.manage().window().maximize();
 					driverHolder.put(user, driver);
 
@@ -136,7 +154,9 @@ public class BaseClasses {
 			else {
 				if(driverHolder.get(user)==null){
 					log.info("Default driver as Firefox Driver is selected");
-					driver=new FirefoxDriver();
+					capability = DesiredCapabilities.firefox();
+					/*capability.setCapability(CapabilityType.PROXY, proxy);*/
+					driver=new FirefoxDriver(capability);
 					driver.manage().window().maximize();
 					driverHolder.put(user, driver);
 				}
@@ -199,9 +219,24 @@ public class BaseClasses {
 
 	}
 
+	/**
+	 * Method written to identify any browser specific port is required, network-> settings 
+	 * If nothing is mentioned in the property file then it will return 8080
+	 * @return
+	 */
+	public static String getBrowserProxy(){
+		log.info("Checking the browser port connection");
+		browserPort=p.getVal("browserport");
+		if(browserPort!=null)
+			return browserPort;
+		else
+			return "8080";
+
+	}
+
 
 	/**
-	 * This is used to get the remoteURL for the gridification
+	 * This is used to get the remoteURL for the gridification, Not using it as we are getting the value as maven parameter
 	 * @return
 	 */
 	public static String remoteUrlLocation(){

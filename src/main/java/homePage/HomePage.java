@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import utilPackages.JavaScriptExec;
 import utilPackages.WaitClass;
@@ -28,7 +29,8 @@ public class HomePage extends BasePage{
 	public HomePage(WebDriver webdriver) {
 		super(webdriver);
 	}
-
+	
+	SoftAssert sa=new SoftAssert();
 	Logger log=Logger.getLogger(HomePage.class);
 	HomePage homePage;
 	
